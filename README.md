@@ -89,9 +89,22 @@ All tests run in Node and are fully isolated, with 100% coverage.
 
 ---
 
+
 ## 🧱 Outcome
 
 - Cleanly layered backend design
 - Fully tested stack
 - Clear separation of logic
 - Portable and extensible codebase
+
+---
+
+## 📝 TODO / Future Improvements
+
+- Add unit and integration tests for frontend components (Widget, Sidebar, Canvas)
+- Add end-to-end (E2E) tests using Playwright or Cypress
+- Refactor state logic into a context or state manager if scale grows
+- Polish UI with optional styling framework (e.g., Tailwind or CSS Modules)
+- Implement persistent storage with file system or database instead of in-memory
+- Handle API errors and network states gracefully in the UI
+- Add accessibility enhancements and keyboard navigation support
