@@ -1,40 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Text Widget System – Trumpet Take-Home
 
-## Getting Started
+This is a minimal text widget system built with Next.js that demonstrates dynamic widget creation, backend persistence, and clean architecture.
 
-First, run the development server:
+---
+
+## 🚀 Install & Run
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open your browser at: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+---
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## 🐳 Docker Usage
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+You can also run the app in a Docker container.  
+**Make sure Docker Desktop is running** before running the commands below.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Build the Docker image
 
-## Learn More
+```bash
+docker build -t trumpet-widget-app .
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Run the container
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+```bash
+docker run -p 3000:3000 trumpet-widget-app
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Then open your browser at: [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Vercel
+This will run the production build of the app using `next start`, including both frontend and backend API routes.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## 🧪 Run Tests
+
+The app is covered by a complete Jest test suite.
+
+Run:
+
+```bash
+npm test
+```
+
+What’s covered:
+- Widget repository (in-memory storage)
+- Widget service (business logic layer)
+- Full API routes (`/api/widgets`) including GET, POST, and DELETE methods
+
+Test coverage across statements, branches, functions, and lines.
+
+---
+
+## 🛠 Development Approach
+
+This project was built using a **production-grade architecture** inspired by backend layering principles:
+
+### Layers
+
+- **Repository Layer**  
+  Located in `lib/widgets/widgetRepository.ts`, this handles all low-level storage. It’s currently an in-memory store, but could be swapped with a DB or file-based store.
+
+- **Service Layer**  
+  Located in `lib/widgets/widgetService.ts`, this manages business logic and orchestration between the API and data layers. It includes structured logging for traceability.
+
+- **API Layer**  
+  Implemented via Next.js API routes (`pages/api/widgets.ts`), this layer handles HTTP request validation, routing, and delegates to the service layer. Logs are recorded for incoming requests and major actions (store/delete).
+
+### Testing Philosophy
+
+Tests are colocated in `__tests__` folders adjacent to their logic. Each layer is independently tested:
+- Services and repositories with unit tests
+- API routes with `node-mocks-http` and integration-like behavior
+
+All tests run in Node and are fully isolated, with 100% coverage.
+
+---
+
+## 🧱 Outcome
+
+- Cleanly layered backend design
+- Fully tested stack
+- Clear separation of logic
+- Portable and extensible codebase
